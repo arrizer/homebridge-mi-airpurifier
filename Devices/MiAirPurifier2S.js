@@ -30,7 +30,7 @@ MiAirPurifier2S = function(platform, config) {
         address: this.config['ip'],
         token: this.config['token']
     }).then(device => {
-        console.error("*** Connected to air purifier at " + this.config['ip']);
+        that.platform.log.error("*** Connected to air purifier at " + this.config['ip']);
         that.device.cache = {};
         that.device.call = function(method, args) {
             return device.call(method, args);
@@ -59,11 +59,11 @@ MiAirPurifier2S = function(platform, config) {
 
             if (propsToFetch.length == 0) {
                 const result = makeResult();
-                console.error("*** Using cached values for " + props.join(", ") + ": " + JSON.stringify(values));
+                that.platform.log.error("*** Using cached values for " + props.join(", ") + ": " + JSON.stringify(values));
                 return Promise.resolve(result);
             }
 
-            console.error("*** Fetching device values for " + propsToFetch.join(", "));
+            that.platform.log.error("*** Fetching device values for " + propsToFetch.join(", "));
             return new Promise((resolve, reject) => {
                 device.call('get_prop', propsToFetch).then(result => {
                     for (i = 0; i < propsToFetch.length; i++) {
@@ -81,7 +81,7 @@ MiAirPurifier2S = function(platform, config) {
             that.device.cache[prop] = value;
         }
     }).catch(error => {
-        console.error("*** Failed to connect: " + error);
+        that.platform.log.error("*** Failed to connect: " + error);
     });
 
     this.accessories = {};
@@ -161,6 +161,8 @@ MiAirPurifier2SAirPurifierAccessory.prototype.getServices = function() {
             currentRelativeHumidityCharacteristic.getValue();
             pm25DensityCharacteristic.getValue();        
             airQualityCharacteristic.getValue();            
+        }).catch(function(err) {
+            that.platform.log.error("*** Polling failed: " + err);
         });
     }, 5000);
     
