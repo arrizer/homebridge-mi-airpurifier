@@ -7,7 +7,7 @@ var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
 
 MiAirPurifier2S = function(platform, config) {
     this.init(platform, config);
-    this.name = dThis.config['airPurifierName'];
+    this.name = config['airPurifierName'];
     
     Accessory = platform.Accessory;
     PlatformAccessory = platform.PlatformAccessory;
