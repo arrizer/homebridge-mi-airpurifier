@@ -61,12 +61,11 @@ function MiAirPurifierPlatform(log, config, api) {
         this.api = api;
     }
     
-    this.log.info("[MiAirPurifierPlatform][INFO]*******************************************************************");
-    this.log.info("[MiAirPurifierPlatform][INFO]          MiAirPurifierPlatform v%s By YinHang", packageFile.version);
-    this.log.info("[MiAirPurifierPlatform][INFO]  GitHub: https://github.com/YinHangCode/homebridge-mi-airpurifier ");
-    this.log.info("[MiAirPurifierPlatform][INFO]                                              QQ Group: 107927710  ");
-    this.log.info("[MiAirPurifierPlatform][INFO]*******************************************************************");
-    this.log.info("[MiAirPurifierPlatform][INFO]start success...");
+    this.log.info("*******************************************************************");
+    this.log.info("          MiAirPurifierPlatform v%s By YinHang", packageFile.version);
+    this.log.info("  GitHub: https://github.com/YinHangCode/homebridge-mi-airpurifier ");
+    this.log.info("                                              QQ Group: 107927710  ");
+    this.log.info("*******************************************************************");
 }
 
 MiAirPurifierPlatform.prototype = {
@@ -103,7 +102,7 @@ MiAirPurifierPlatform.prototype = {
                 } else {
                 }
             }
-            this.log.info("[MiAirPurifierPlatform][INFO]device size: " + deviceCfgs.length + ", accessories size: " + myAccessories.length);
+            this.log.info("Initialized " + deviceCfgs.length + " devices as " + myAccessories.length + " accessories");
         }
         
         callback(myAccessories);

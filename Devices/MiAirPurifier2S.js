@@ -7,6 +7,7 @@ var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
 
 MiAirPurifier2S = function(platform, config) {
     this.init(platform, config);
+    this.name = dThis.config['airPurifierName'];
     
     Accessory = platform.Accessory;
     PlatformAccessory = platform.PlatformAccessory;
@@ -30,10 +31,11 @@ MiAirPurifier2S = function(platform, config) {
         },
         setCache: function() {},
         call: function() {
-            return Promise.reject(new Error("Cannot perform call: Not connected to device yet"));
+            return Promise.reject(new Error("Cannot perform call: Not connected to device"));
         }
     };
     
+    this.logDebug("Connecting to device " + this.config['ip']);
     miio.device({
         address: this.config['ip'],
         token: this.config['token']
