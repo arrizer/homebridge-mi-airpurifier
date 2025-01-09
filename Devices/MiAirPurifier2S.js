@@ -27,7 +27,8 @@ MiAirPurifier2S = function(platform, config) {
 
     this.device = {
         getProps: async function(props) {
-            return Promise.reject(new Error("Cannot getProps(" + props.join(", ") + "): Not connected to device"));
+            //return Promise.reject(new Error("Cannot getProps(" + props.join(", ") + "): Not connected to device"));
+            return Promise.resolve("");
         },
         setCache: function(method) {},
         call: function() {
