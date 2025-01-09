@@ -27,8 +27,7 @@ MiAirPurifier2S = function(platform, config) {
 
     this.device = {
         getProps: async function(props) {
-            //return Promise.reject(new Error("Cannot getProps(" + props.join(", ") + "): Not connected to device"));
-            return Promise.resolve("");
+            return Promise.reject(new Error("Cannot getProps(" + props.join(", ") + "): Not connected to device"));
         },
         setCache: function(method) {},
         call: function() {
@@ -163,21 +162,21 @@ MiAirPurifier2SAirPurifierAccessory.prototype.getServices = function() {
     var airQualityCharacteristic = airPurifierService.addCharacteristic(Characteristic.AirQuality);
     services.push(airPurifierService);
 
-    // setInterval(function() {
-    //     that.device.getProps(["mode", "power", "child_lock", "favorite_level", "temp_dec", "humidity", "aqi", "filter1_life", "volume", "led"], true).then(result => {
-    //         activeCharacteristic.getValue();
-    //         currentAirPurifierStateCharacteristic.getValue();
-    //         targetAirPurifierStateCharacteristic.getValue();
-    //         lockPhysicalControlsCharacteristic.getValue();
-    //         rotationSpeedCharacteristic.getValue();
-    //         currentTemperatureCharacteristic.getValue();
-    //         currentRelativeHumidityCharacteristic.getValue();
-    //         pm25DensityCharacteristic.getValue();
-    //         airQualityCharacteristic.getValue();
-    //     }).catch(function(err) {
-    //         that.logError("Polling failed: " + err);
-    //     });
-    // }, 5000);
+    setInterval(function() {
+        that.device.getProps(["mode", "power", "child_lock", "favorite_level", "temp_dec", "humidity", "aqi", "filter1_life", "volume", "led"], true).then(result => {
+            activeCharacteristic.getValue();
+            currentAirPurifierStateCharacteristic.getValue();
+            targetAirPurifierStateCharacteristic.getValue();
+            lockPhysicalControlsCharacteristic.getValue();
+            rotationSpeedCharacteristic.getValue();
+            currentTemperatureCharacteristic.getValue();
+            currentRelativeHumidityCharacteristic.getValue();
+            pm25DensityCharacteristic.getValue();
+            airQualityCharacteristic.getValue();
+        }).catch(function(err) {
+            that.logError("Polling failed: " + err);
+        });
+    }, 5000);
     
     silentModeOnCharacteristic
         .on('get', function(callback) {
